@@ -1,0 +1,3377 @@
+{
+  "schema": {
+    "surum": 2,
+    "aciklama": "Kisisel saglik takip verisi. Tek dogruluk kaynagi. Duz JSON; ozel kutuphane gerekmez, herhangi bir editor veya LLM ile duzenlenebilir.",
+    "kurallar": [
+      "Tum tarihler ISO 8601 string: YYYY-MM-DD",
+      "Tum olcum degerleri JSON number tipinde olmali: 25.5 dogru, \"25,5\" yanlis",
+      "Ondalik ayirici nokta (.), virgul degil",
+      "Marker anahtarlari kucuk harf + alt cizgi: vitamin_d, tsh, magnezyum",
+      "Farkli laboratuvarlar farkli birim kullanabilir; ayni markerdaki tum kayitlar tek birime normalize edilmelidir (ornek: g/L -> g/dL, mg/dL -> mg/L). Cevrilen kayitlarda orijinal deger 'not' alanina yazilir.",
+      "Her kayit kendi refDusuk/refYuksek degerini tasiyabilir; yoksa markerin varsayilani kullanilir",
+      "sonuclar dizisi sirali olmak zorunda degil; arayuz tarihe gore kendisi siralar"
+    ],
+    "alanlar": {
+      "kisiler": "Kisi anahtari -> kisi nesnesi",
+      "kisiler.*.ad": "Arayuzde gorunen isim (string)",
+      "kisiler.*.dogumTarihi": "OPSIYONEL. YYYY-MM-DD",
+      "kisiler.*.majorler": "Panelde one cikarilacak marker anahtarlari (string[])",
+      "kisiler.*.ilaclar": "[{ ad, doz, siklik, not }] - kullanilan ilac/takviyeler",
+      "kisiler.*.markerlar": "Marker anahtari -> marker nesnesi",
+      "kisiler.*.markerlar.*.etiket": "Arayuzde gorunen tam ad",
+      "kisiler.*.markerlar.*.birim": "Olcum birimi",
+      "kisiler.*.markerlar.*.refDusuk": "Varsayilan referans alt siniri (number)",
+      "kisiler.*.markerlar.*.refYuksek": "Varsayilan referans ust siniri (number)",
+      "kisiler.*.markerlar.*.aciklama": "OPSIYONEL. Marker hakkinda not",
+      "kisiler.*.markerlar.*.sonuclar": "Olcum kayitlari dizisi",
+      "sonuclar[].tarih": "ZORUNLU. YYYY-MM-DD",
+      "sonuclar[].deger": "ZORUNLU. number",
+      "sonuclar[].refDusuk": "OPSIYONEL. O olcume ozel alt sinir",
+      "sonuclar[].refYuksek": "OPSIYONEL. O olcume ozel ust sinir",
+      "sonuclar[].lab": "OPSIYONEL. Laboratuvar adi",
+      "sonuclar[].not": "OPSIYONEL. Serbest not",
+      "kisiler.*.kilo": "[{ tarih, deger }] - kg cinsinden number",
+      "kisiler.*.notlar": "[{ tarih, metin }]"
+    }
+  },
+  "meta": {
+    "sonGuncelleme": "2026-07-27",
+    "kaynak": "e-Nabiz PDF disari aktarimlari (Mart 2025 - Temmuz 2026)",
+    "not": "Muhammed: 16 e-Nabiz raporu (Mart 2025 - Temmuz 2026). Melis: 11 e-Nabiz raporu (Ocak 2025 - Mart 2026), kadin referans araliklariyla."
+  },
+  "kisiler": {
+    "muhammed": {
+      "ad": "Muhammed",
+      "dogumTarihi": "1997-10-21",
+      "majorler": [
+        "vitamin_d",
+        "tsh",
+        "alt",
+        "hba1c",
+        "ferritin",
+        "demir",
+        "magnezyum",
+        "cinko"
+      ],
+      "ilaclar": [
+        {
+          "ad": "Euthyrox",
+          "doz": "25 mcg",
+          "siklik": "gunde 1",
+          "not": "Hashimoto tiroiditi icin"
+        },
+        {
+          "ad": "D-Colefor D3",
+          "doz": "50.000 IU",
+          "siklik": "haftada 1 (kur)",
+          "not": "D vitamini yukleme kuru"
+        }
+      ],
+      "markerlar": {
+        "vitamin_d": {
+          "etiket": "D Vitamini (25-OH)",
+          "birim": "ng/mL",
+          "refDusuk": 30,
+          "refYuksek": 80,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 25.7,
+              "refDusuk": 30,
+              "refYuksek": 80,
+              "lab": "Istinye Universitesi",
+              "not": "Yetersiz"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 25.5,
+              "refDusuk": 30,
+              "refYuksek": 80,
+              "lab": "Istinye Universitesi",
+              "not": "Yetersiz, degismedi"
+            }
+          ]
+        },
+        "tsh": {
+          "etiket": "TSH",
+          "birim": "mIU/L",
+          "refDusuk": 0.35,
+          "refYuksek": 4.94,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 2.33,
+              "refDusuk": 0.35,
+              "refYuksek": 4.94,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 5.2,
+              "refDusuk": 0.35,
+              "refYuksek": 4.94,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 5.7,
+              "refDusuk": 0.35,
+              "refYuksek": 4.94,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek - tepe nokta"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 2.06,
+              "refDusuk": 0.38,
+              "refYuksek": 5.33,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Euthyrox sonrasi normal"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 2.45,
+              "refDusuk": 0.38,
+              "refYuksek": 5.33,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Kontrol altinda"
+            }
+          ],
+          "aciklama": "Hashimoto tiroiditi; Euthyrox 25 mcg kullaniliyor"
+        },
+        "alt": {
+          "etiket": "ALT (SGPT)",
+          "birim": "U/L",
+          "refDusuk": 0,
+          "refYuksek": 50,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 73,
+              "refDusuk": 0,
+              "refYuksek": 45,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 59,
+              "refDusuk": 10,
+              "refYuksek": 44,
+              "lab": "Medicana Zincirlikuyu",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 43,
+              "refDusuk": 0,
+              "refYuksek": 50,
+              "lab": "Taksim EAH"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 96,
+              "refDusuk": 0,
+              "refYuksek": 45,
+              "lab": "Istinye Universitesi",
+              "not": "En yuksek deger"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 75,
+              "refDusuk": 0,
+              "refYuksek": 45,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 51,
+              "refDusuk": 0,
+              "refYuksek": 45,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 86,
+              "refDusuk": 10,
+              "refYuksek": 50,
+              "lab": "Medipol Mega",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 54,
+              "refDusuk": 0,
+              "refYuksek": 50,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 62,
+              "refDusuk": 0,
+              "refYuksek": 50,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Yuksek"
+            }
+          ],
+          "aciklama": "2025'ten beri surekli referans ustunde; AST genelde normal"
+        },
+        "hba1c": {
+          "etiket": "HbA1c (Glike Hemoglobin)",
+          "birim": "%",
+          "refDusuk": 4.0,
+          "refYuksek": 5.6,
+          "sonuclar": [
+            {
+              "tarih": "2026-04-06",
+              "deger": 5.9,
+              "refDusuk": 4.0,
+              "refYuksek": 5.6,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Prediyabet araligi (5.7-6.4)"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 6.0,
+              "refDusuk": 4.0,
+              "refYuksek": 5.6,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Prediyabet araligi, yukseliyor"
+            }
+          ],
+          "aciklama": "Karar sinirlari: <5.7 normal, 5.7-6.4 prediyabet, >6.4 diyabet"
+        },
+        "ferritin": {
+          "etiket": "Ferritin",
+          "birim": "ng/mL",
+          "refDusuk": 24,
+          "refYuksek": 336,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 33.0,
+              "refDusuk": 24,
+              "refYuksek": 336,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-04-07",
+              "deger": 51.95,
+              "refDusuk": 21.8,
+              "refYuksek": 274,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-05-12",
+              "deger": 33.2,
+              "refDusuk": 24,
+              "refYuksek": 336,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 57.11,
+              "refDusuk": 21.8,
+              "refYuksek": 274,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 33.51,
+              "refDusuk": 21.8,
+              "refYuksek": 274,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 70.6,
+              "refDusuk": 24,
+              "refYuksek": 336,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "En yuksek"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 57.4,
+              "refDusuk": 30,
+              "refYuksek": 220,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ],
+          "aciklama": "ng/mL ve ug/L ayni birimdir"
+        },
+        "demir": {
+          "etiket": "Demir (Serum)",
+          "birim": "ug/dL",
+          "refDusuk": 70,
+          "refYuksek": 180,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 56,
+              "refDusuk": 70,
+              "refYuksek": 180,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Dusuk"
+            },
+            {
+              "tarih": "2025-04-07",
+              "deger": 59,
+              "refDusuk": 65,
+              "refYuksek": 175,
+              "lab": "Istinye Universitesi",
+              "not": "Dusuk"
+            },
+            {
+              "tarih": "2025-05-12",
+              "deger": 102,
+              "refDusuk": 70,
+              "refYuksek": 180,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Normale dondu"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 99,
+              "refDusuk": 65,
+              "refYuksek": 175,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 77,
+              "refDusuk": 65,
+              "refYuksek": 175,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 78,
+              "refDusuk": 70,
+              "refYuksek": 180,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 80,
+              "refDusuk": 70,
+              "refYuksek": 180,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "magnezyum": {
+          "etiket": "Magnezyum",
+          "birim": "mg/dL",
+          "refDusuk": 1.6,
+          "refYuksek": 2.6,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 1.99,
+              "refDusuk": 1.6,
+              "refYuksek": 2.6,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 2.07,
+              "refDusuk": 1.6,
+              "refYuksek": 2.6,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 2.1,
+              "refDusuk": 1.6,
+              "refYuksek": 2.6,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 2.2,
+              "refDusuk": 1.6,
+              "refYuksek": 2.6,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "cinko": {
+          "etiket": "Cinko",
+          "birim": "ug/dL",
+          "refDusuk": 70,
+          "refYuksek": 120,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 110.8,
+              "refDusuk": 72.6,
+              "refYuksek": 127,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 70.3,
+              "refDusuk": 72.6,
+              "refYuksek": 127,
+              "lab": "Istinye Universitesi",
+              "not": "Dusuk"
+            },
+            {
+              "tarih": "2026-04-20",
+              "deger": 85,
+              "refDusuk": 60,
+              "refYuksek": 120,
+              "lab": "Medipol Mega",
+              "not": "Normale dondu"
+            }
+          ]
+        },
+        "ast": {
+          "etiket": "AST (SGOT)",
+          "birim": "U/L",
+          "refDusuk": 5,
+          "refYuksek": 40,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 34,
+              "refDusuk": 5,
+              "refYuksek": 40,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 27,
+              "refDusuk": 11,
+              "refYuksek": 34,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 26,
+              "refDusuk": 0,
+              "refYuksek": 50,
+              "lab": "Taksim EAH"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 43,
+              "refDusuk": 5,
+              "refYuksek": 40,
+              "lab": "Istinye Universitesi",
+              "not": "Hafif yuksek"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 36,
+              "refDusuk": 5,
+              "refYuksek": 40,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 17,
+              "refDusuk": 5,
+              "refYuksek": 40,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 33,
+              "refDusuk": 10,
+              "refYuksek": 50,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 29,
+              "refDusuk": 0,
+              "refYuksek": 50,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 29,
+              "refDusuk": 0,
+              "refYuksek": 50,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "ggt": {
+          "etiket": "GGT",
+          "birim": "U/L",
+          "refDusuk": 0,
+          "refYuksek": 55,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 30,
+              "refDusuk": 0,
+              "refYuksek": 55,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 27,
+              "refDusuk": 12,
+              "refYuksek": 55,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 46,
+              "refDusuk": 0,
+              "refYuksek": 55,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 35,
+              "refDusuk": 8,
+              "refYuksek": 61,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 31,
+              "refDusuk": 0,
+              "refYuksek": 55,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "alp": {
+          "etiket": "ALP (Alkalen Fosfataz)",
+          "birim": "U/L",
+          "refDusuk": 43,
+          "refYuksek": 115,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 58,
+              "refDusuk": 50,
+              "refYuksek": 116,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 55,
+              "refDusuk": 50,
+              "refYuksek": 116,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 50,
+              "refDusuk": 40,
+              "refYuksek": 129,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 55,
+              "refDusuk": 43,
+              "refYuksek": 115,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "bilirubin_total": {
+          "etiket": "Bilirubin (Total)",
+          "birim": "mg/dL",
+          "refDusuk": 0.3,
+          "refYuksek": 1.2,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 1.75,
+              "refDusuk": 0,
+              "refYuksek": 1.3,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 1.54,
+              "refDusuk": 0.3,
+              "refYuksek": 1.2,
+              "lab": "Taksim EAH",
+              "not": "Yuksek; indirek 1.30"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 1.5,
+              "refDusuk": 0,
+              "refYuksek": 1.3,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 1.13,
+              "refDusuk": 0,
+              "refYuksek": 1.3,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 1.65,
+              "refDusuk": 0.2,
+              "refYuksek": 1.2,
+              "lab": "Medipol Mega",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 1.03,
+              "refDusuk": 0.3,
+              "refYuksek": 1.2,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 1.84,
+              "refDusuk": 0.3,
+              "refYuksek": 1.2,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Yuksek"
+            }
+          ],
+          "aciklama": "Cogunlukla indirek hakim; hekime sorulmali"
+        },
+        "bilirubin_direkt": {
+          "etiket": "Bilirubin (Direkt)",
+          "birim": "mg/dL",
+          "refDusuk": 0,
+          "refYuksek": 0.3,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 0.52,
+              "refDusuk": 0,
+              "refYuksek": 0.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 0.24,
+              "refDusuk": 0,
+              "refYuksek": 0.2,
+              "lab": "Taksim EAH"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 0.46,
+              "refDusuk": 0,
+              "refYuksek": 0.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 0.42,
+              "refDusuk": 0,
+              "refYuksek": 0.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 0.56,
+              "refDusuk": 0,
+              "refYuksek": 0.3,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 0.18,
+              "refDusuk": 0,
+              "refYuksek": 0.21,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 0.29,
+              "refDusuk": 0,
+              "refYuksek": 0.21,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "albumin": {
+          "etiket": "Albumin",
+          "birim": "g/dL",
+          "refDusuk": 3.5,
+          "refYuksek": 5.2,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 4.78,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "47.8 g/L olarak raporlandi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 4.9,
+              "refDusuk": 3.5,
+              "refYuksek": 5.0,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 4.61,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "46.1 g/L"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 4.99,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "49.9 g/L"
+            }
+          ],
+          "aciklama": "g/L degerler g/dL'ye cevrildi (bolu 10)"
+        },
+        "st4": {
+          "etiket": "Serbest T4",
+          "birim": "ng/dL",
+          "refDusuk": 0.7,
+          "refYuksek": 1.48,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 0.88,
+              "refDusuk": 0.7,
+              "refYuksek": 1.48,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 1.04,
+              "refDusuk": 0.7,
+              "refYuksek": 1.48,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 0.97,
+              "refDusuk": 0.7,
+              "refYuksek": 1.48,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 0.76,
+              "refDusuk": 0.58,
+              "refYuksek": 1.38,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 0.86,
+              "refDusuk": 0.58,
+              "refYuksek": 1.38,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "st3": {
+          "etiket": "Serbest T3",
+          "birim": "pg/mL",
+          "refDusuk": 2.0,
+          "refYuksek": 4.4,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 3.8,
+              "refDusuk": 2.0,
+              "refYuksek": 4.4,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 3.37,
+              "refDusuk": 2.0,
+              "refYuksek": 4.4,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "anti_tpo": {
+          "etiket": "Anti-TPO",
+          "birim": "IU/mL",
+          "refDusuk": 0,
+          "refYuksek": 34,
+          "sonuclar": [
+            {
+              "tarih": "2026-02-10",
+              "deger": 172,
+              "refDusuk": 0,
+              "refYuksek": 34,
+              "lab": "Medipol Mega",
+              "not": "Yuksek - Hashimoto gostergesi"
+            }
+          ],
+          "aciklama": "Tiroid otoantikoru"
+        },
+        "anti_tg": {
+          "etiket": "Anti-Tiroglobulin",
+          "birim": "IU/mL",
+          "refDusuk": 0,
+          "refYuksek": 115,
+          "sonuclar": [
+            {
+              "tarih": "2026-02-10",
+              "deger": 36.6,
+              "refDusuk": 0,
+              "refYuksek": 115,
+              "lab": "Medipol Mega"
+            }
+          ]
+        },
+        "b12": {
+          "etiket": "Vitamin B12",
+          "birim": "pg/mL",
+          "refDusuk": 191,
+          "refYuksek": 663,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 534,
+              "refDusuk": 191,
+              "refYuksek": 663,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 604,
+              "refDusuk": 191,
+              "refYuksek": 663,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 519,
+              "refDusuk": 191,
+              "refYuksek": 663,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 568,
+              "refDusuk": 178,
+              "refYuksek": 1195,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ],
+          "aciklama": "pg/mL ve ng/L ayni birimdir. 07.07.2026 numunesi reddedildi."
+        },
+        "folat": {
+          "etiket": "Folik Asit / Folat",
+          "birim": "ng/mL",
+          "refDusuk": 3.1,
+          "refYuksek": 20.5,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 10.4,
+              "refDusuk": 3.1,
+              "refYuksek": 20.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 5.4,
+              "refDusuk": 3.1,
+              "refYuksek": 20.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 3.1,
+              "refDusuk": 3.1,
+              "refYuksek": 20.5,
+              "lab": "Istinye Universitesi",
+              "not": "Alt sinirda"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 6.5,
+              "refDusuk": 3.1,
+              "refYuksek": 19.9,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "glukoz": {
+          "etiket": "Aclik Kan Sekeri",
+          "birim": "mg/dL",
+          "refDusuk": 70,
+          "refYuksek": 100,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 95,
+              "refDusuk": 70,
+              "refYuksek": 110,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 104,
+              "refDusuk": 70,
+              "refYuksek": 105,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 112,
+              "refDusuk": 74,
+              "refYuksek": 100,
+              "lab": "Taksim EAH",
+              "not": "Bozulmus aclik glukozu araligi"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 91,
+              "refDusuk": 70,
+              "refYuksek": 110,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 95,
+              "refDusuk": 70,
+              "refYuksek": 110,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 83,
+              "refDusuk": 70,
+              "refYuksek": 110,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 95,
+              "refDusuk": 74,
+              "refYuksek": 100,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 92,
+              "refDusuk": 74,
+              "refYuksek": 100,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "insulin": {
+          "etiket": "Insulin (Aclik)",
+          "birim": "uU/mL",
+          "refDusuk": 2.6,
+          "refYuksek": 24.9,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 18.1,
+              "refDusuk": 2.6,
+              "refYuksek": 24.9,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 21.6,
+              "refDusuk": 2.6,
+              "refYuksek": 24.9,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "kolesterol": {
+          "etiket": "Kolesterol (Total)",
+          "birim": "mg/dL",
+          "refDusuk": 0,
+          "refYuksek": 200,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 187,
+              "refDusuk": 50,
+              "refYuksek": 200,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 189,
+              "refDusuk": 0,
+              "refYuksek": 200,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 183,
+              "refDusuk": 0,
+              "refYuksek": 200,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "ldl": {
+          "etiket": "LDL Kolesterol",
+          "birim": "mg/dL",
+          "refDusuk": 0,
+          "refYuksek": 130,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 136,
+              "refDusuk": 60,
+              "refYuksek": 130,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 92,
+              "refDusuk": 60,
+              "refYuksek": 130,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 120,
+              "refDusuk": 0,
+              "refYuksek": 130,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 112,
+              "refDusuk": 0,
+              "refYuksek": 130,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "hdl": {
+          "etiket": "HDL Kolesterol",
+          "birim": "mg/dL",
+          "refDusuk": 40,
+          "refYuksek": 100,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 40,
+              "refDusuk": 40,
+              "refYuksek": 100,
+              "lab": "Istinye Universitesi",
+              "not": "Sinirda"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 55,
+              "refDusuk": 40,
+              "refYuksek": 100,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 40,
+              "refDusuk": 40,
+              "refYuksek": 100,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Sinirda"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 52,
+              "refDusuk": 40,
+              "refYuksek": 100,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ],
+          "aciklama": "HDL'de yuksek olmasi iyidir; ust sinir gorsel amaclidir"
+        },
+        "trigliserit": {
+          "etiket": "Trigliserit",
+          "birim": "mg/dL",
+          "refDusuk": 0,
+          "refYuksek": 150,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 133,
+              "refDusuk": 0,
+              "refYuksek": 150,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 112,
+              "refDusuk": 0,
+              "refYuksek": 150,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 145,
+              "refDusuk": 0,
+              "refYuksek": 150,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 97,
+              "refDusuk": 0,
+              "refYuksek": 150,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "crp": {
+          "etiket": "CRP",
+          "birim": "mg/L",
+          "refDusuk": 0,
+          "refYuksek": 5,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 2.1,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-04-07",
+              "deger": 3.6,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Istinye Universitesi",
+              "not": "0.36 mg/dL olarak raporlandi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 2.1,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 24.04,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Taksim EAH",
+              "not": "Yuksek - akut enfeksiyon"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 2.7,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Istinye Universitesi",
+              "not": "0.27 mg/dL"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 2.9,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Istinye Universitesi",
+              "not": "0.29 mg/dL"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 4.0,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Istinye Universitesi",
+              "not": "0.40 mg/dL"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 1.7,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Medipol Mega",
+              "not": "0.17 mg/dL"
+            },
+            {
+              "tarih": "2026-02-25",
+              "deger": 50.8,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Medipol Mega",
+              "not": "5.08 mg/dL - akut enfeksiyon"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 6.1,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "Hafif yuksek"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 2.2,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ],
+          "aciklama": "Tum degerler mg/L'ye normalize edildi (mg/dL x 10)"
+        },
+        "wbc": {
+          "etiket": "Lokosit (WBC)",
+          "birim": "10^3/uL",
+          "refDusuk": 4.0,
+          "refYuksek": 10.0,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 6.46,
+              "refDusuk": 3.8,
+              "refYuksek": 10,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-04-07",
+              "deger": 9.68,
+              "refDusuk": 4.23,
+              "refYuksek": 9.07,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 7.43,
+              "refDusuk": 4,
+              "refYuksek": 10,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-05-12",
+              "deger": 7.52,
+              "refDusuk": 3.8,
+              "refYuksek": 10,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 10.1,
+              "refDusuk": 3.8,
+              "refYuksek": 10,
+              "lab": "Taksim EAH",
+              "not": "Hafif yuksek"
+            },
+            {
+              "tarih": "2025-07-29",
+              "deger": 8.84,
+              "refDusuk": 3.8,
+              "refYuksek": 10,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 9.12,
+              "refDusuk": 4.23,
+              "refYuksek": 9.07,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 7.87,
+              "refDusuk": 4.23,
+              "refYuksek": 9.07,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 15.76,
+              "refDusuk": 4.23,
+              "refYuksek": 9.07,
+              "lab": "Istinye Universitesi",
+              "not": "Belirgin yuksek - akut tablo"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 8.42,
+              "refDusuk": 4.4,
+              "refYuksek": 11.3,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-02-25",
+              "deger": 12.55,
+              "refDusuk": 4.4,
+              "refYuksek": 11.3,
+              "lab": "Medipol Mega",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 7.59,
+              "refDusuk": 3.8,
+              "refYuksek": 10,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 6.37,
+              "refDusuk": 3.8,
+              "refYuksek": 10,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "hgb": {
+          "etiket": "Hemoglobin",
+          "birim": "g/dL",
+          "refDusuk": 13.5,
+          "refYuksek": 17.5,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 16.4,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "164 g/L"
+            },
+            {
+              "tarih": "2025-04-07",
+              "deger": 16.4,
+              "refDusuk": 13.7,
+              "refYuksek": 17.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 15.7,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-05-12",
+              "deger": 16.2,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "162 g/L"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 16.3,
+              "lab": "Taksim EAH",
+              "not": "163 g/L"
+            },
+            {
+              "tarih": "2025-07-29",
+              "deger": 16.9,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "169 g/L"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 16.1,
+              "refDusuk": 13.7,
+              "refYuksek": 17.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 16.2,
+              "refDusuk": 13.7,
+              "refYuksek": 17.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 16.0,
+              "refDusuk": 13.7,
+              "refYuksek": 17.5,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 15.0,
+              "refDusuk": 14,
+              "refYuksek": 17.5,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-02-25",
+              "deger": 15.5,
+              "refDusuk": 14,
+              "refYuksek": 17.5,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 16.3,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "163 g/L"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 16.4,
+              "lab": "Sisli Aile Hekimligi",
+              "not": "164 g/L"
+            }
+          ],
+          "aciklama": "g/L degerler g/dL'ye cevrildi (bolu 10)"
+        },
+        "plt": {
+          "etiket": "Trombosit (PLT)",
+          "birim": "10^3/uL",
+          "refDusuk": 150,
+          "refYuksek": 400,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 221,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-04-07",
+              "deger": 224,
+              "refDusuk": 163,
+              "refYuksek": 337,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 210,
+              "refDusuk": 135,
+              "refYuksek": 486,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-05-12",
+              "deger": 194,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 202,
+              "lab": "Taksim EAH"
+            },
+            {
+              "tarih": "2025-07-29",
+              "deger": 306,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 205,
+              "refDusuk": 150,
+              "refYuksek": 450,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 242,
+              "refDusuk": 150,
+              "refYuksek": 450,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 259,
+              "refDusuk": 150,
+              "refYuksek": 450,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 225,
+              "refDusuk": 140,
+              "refYuksek": 336,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-02-25",
+              "deger": 185,
+              "refDusuk": 140,
+              "refYuksek": 336,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 309,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 250,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "kreatinin": {
+          "etiket": "Kreatinin",
+          "birim": "mg/dL",
+          "refDusuk": 0.67,
+          "refYuksek": 1.17,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 0.91,
+              "refDusuk": 0.67,
+              "refYuksek": 1.17,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-04-07",
+              "deger": 0.91,
+              "refDusuk": 0.5,
+              "refYuksek": 1.2,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 0.81,
+              "refDusuk": 0.6,
+              "refYuksek": 1.2,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 0.87,
+              "refDusuk": 0.67,
+              "refYuksek": 1.17,
+              "lab": "Taksim EAH"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 0.98,
+              "refDusuk": 0.5,
+              "refYuksek": 1.2,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 0.86,
+              "refDusuk": 0.5,
+              "refYuksek": 1.2,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 1.08,
+              "refDusuk": 0.7,
+              "refYuksek": 1.2,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 0.98,
+              "refDusuk": 0.67,
+              "refYuksek": 1.17,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 0.94,
+              "refDusuk": 0.67,
+              "refYuksek": 1.17,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "egfr": {
+          "etiket": "eGFR",
+          "birim": "mL/dk/1.73m2",
+          "refDusuk": 90,
+          "refYuksek": 140,
+          "sonuclar": [
+            {
+              "tarih": "2025-04-07",
+              "deger": 118,
+              "refDusuk": 90,
+              "refYuksek": 137,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 120.95,
+              "refDusuk": 66,
+              "refYuksek": 163,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 118,
+              "refDusuk": 90,
+              "refYuksek": 140,
+              "lab": "Taksim EAH"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 108,
+              "refDusuk": 85,
+              "refYuksek": 132,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 121,
+              "refDusuk": 85,
+              "refYuksek": 132,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "ure": {
+          "etiket": "Ure",
+          "birim": "mg/dL",
+          "refDusuk": 17,
+          "refYuksek": 43,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 22,
+              "refDusuk": 17,
+              "refYuksek": 43,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-04-07",
+              "deger": 21,
+              "refDusuk": 16,
+              "refYuksek": 38,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 25,
+              "refDusuk": 17,
+              "refYuksek": 43,
+              "lab": "Taksim EAH"
+            },
+            {
+              "tarih": "2025-11-07",
+              "deger": 29,
+              "refDusuk": 16,
+              "refYuksek": 38,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 38,
+              "refDusuk": 16,
+              "refYuksek": 38,
+              "lab": "Istinye Universitesi",
+              "not": "Ust sinirda"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 25,
+              "refDusuk": 16,
+              "refYuksek": 38,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-16",
+              "deger": 31,
+              "refDusuk": 16.6,
+              "refYuksek": 48.5,
+              "lab": "Medipol Mega"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 26,
+              "refDusuk": 17,
+              "refYuksek": 43,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 26,
+              "refDusuk": 17,
+              "refYuksek": 43,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "urik_asit": {
+          "etiket": "Urik Asit",
+          "birim": "mg/dL",
+          "refDusuk": 3.5,
+          "refYuksek": 7.2,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 5.3,
+              "refDusuk": 3.5,
+              "refYuksek": 7.2,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 7.0,
+              "refDusuk": 3.7,
+              "refYuksek": 7.7,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 4.9,
+              "refDusuk": 3.7,
+              "refYuksek": 7.7,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 5.5,
+              "refDusuk": 3.5,
+              "refYuksek": 7.2,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 6.8,
+              "refDusuk": 3.5,
+              "refYuksek": 7.2,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "kalsiyum": {
+          "etiket": "Kalsiyum",
+          "birim": "mg/dL",
+          "refDusuk": 8.8,
+          "refYuksek": 10.6,
+          "sonuclar": [
+            {
+              "tarih": "2025-03-07",
+              "deger": 9.5,
+              "refDusuk": 8.8,
+              "refYuksek": 10.6,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-04-21",
+              "deger": 9.7,
+              "refDusuk": 8.5,
+              "refYuksek": 10.4,
+              "lab": "Medicana Zincirlikuyu"
+            },
+            {
+              "tarih": "2025-07-23",
+              "deger": 9.71,
+              "refDusuk": 8.8,
+              "refYuksek": 10.6,
+              "lab": "Taksim EAH"
+            },
+            {
+              "tarih": "2025-11-24",
+              "deger": 9.4,
+              "refDusuk": 8.4,
+              "refYuksek": 10.2,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 8.2,
+              "refDusuk": 8.4,
+              "refYuksek": 10.2,
+              "lab": "Istinye Universitesi",
+              "not": "Dusuk"
+            },
+            {
+              "tarih": "2026-04-06",
+              "deger": 9.9,
+              "refDusuk": 8.8,
+              "refYuksek": 10.6,
+              "lab": "Sisli Aile Hekimligi"
+            },
+            {
+              "tarih": "2026-07-07",
+              "deger": 10.0,
+              "refDusuk": 8.8,
+              "refYuksek": 10.6,
+              "lab": "Sisli Aile Hekimligi"
+            }
+          ]
+        },
+        "pth": {
+          "etiket": "PTH (Paratiroid Hormon)",
+          "birim": "pg/mL",
+          "refDusuk": 15.2,
+          "refYuksek": 127.7,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 38.8,
+              "refDusuk": 15.2,
+              "refYuksek": 127.7,
+              "lab": "Istinye Universitesi",
+              "not": "VitD <30 iken gecerli referans"
+            }
+          ]
+        },
+        "sedim": {
+          "etiket": "Sedimantasyon",
+          "birim": "mm/saat",
+          "refDusuk": 0,
+          "refYuksek": 15,
+          "sonuclar": [
+            {
+              "tarih": "2025-11-24",
+              "deger": 3,
+              "refDusuk": 0,
+              "refYuksek": 15,
+              "lab": "Istinye Universitesi"
+            },
+            {
+              "tarih": "2026-02-02",
+              "deger": 5,
+              "refDusuk": 0,
+              "refYuksek": 15,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        }
+      },
+      "kilo": [],
+      "notlar": [
+        {
+          "tarih": "2026-02-10",
+          "metin": "Hashimoto tiroiditi: Anti-TPO 172 IU/mL (ref <34). Euthyrox 25 mcg gunluk baslandi."
+        },
+        {
+          "tarih": "2026-07-07",
+          "metin": "TSH Euthyrox ile kontrol altinda (2.45). ALT hala referans ustunde (62)."
+        },
+        {
+          "tarih": "2026-04-20",
+          "metin": "Colyak taramasi: Anti-Transglutaminaz IgA 2.5 U/mL - negatif."
+        },
+        {
+          "tarih": "2025-08-19",
+          "metin": "SMA tasiyici taramasi (evlilik oncesi): tasiyicilik saptanmadi."
+        },
+        {
+          "tarih": "2025-07-29",
+          "metin": "Enfeksiyon taramasi: HBsAg, Anti-HIV, Anti-HCV, VDRL-RPR hepsi negatif."
+        }
+      ]
+    },
+    "melis": {
+      "ad": "Melis",
+      "dogumTarihi": "2000-09-25",
+      "majorler": [
+        "vitamin_d",
+        "tsh",
+        "ferritin",
+        "hgb",
+        "magnezyum",
+        "b12",
+        "folat",
+        "dhea_s"
+      ],
+      "ilaclar": [],
+      "markerlar": {
+        "vitamin_d": {
+          "etiket": "D Vitamini (25-OH)",
+          "birim": "ng/mL",
+          "refDusuk": 21,
+          "refYuksek": 60,
+          "sonuclar": [
+            {
+              "tarih": "2025-12-09",
+              "deger": 16.9,
+              "refDusuk": 21,
+              "refYuksek": 60,
+              "lab": "Medipol Universitesi",
+              "not": "Eksiklik bolgesi"
+            }
+          ]
+        },
+        "tsh": {
+          "etiket": "TSH",
+          "birim": "mIU/L",
+          "refDusuk": 0.35,
+          "refYuksek": 4.94,
+          "sonuclar": [
+            {
+              "tarih": "2025-12-09",
+              "deger": 0.805,
+              "refDusuk": 0.27,
+              "refYuksek": 4.2,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-01-26",
+              "deger": 0.81,
+              "refDusuk": 0.35,
+              "refYuksek": 4.94,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "ferritin": {
+          "etiket": "Ferritin",
+          "birim": "ng/mL",
+          "refDusuk": 13,
+          "refYuksek": 150,
+          "sonuclar": [
+            {
+              "tarih": "2025-12-09",
+              "deger": 34,
+              "refDusuk": 13,
+              "refYuksek": 150,
+              "lab": "Medipol Universitesi",
+              "not": "Kadin referansi"
+            }
+          ]
+        },
+        "hgb": {
+          "etiket": "Hemoglobin",
+          "birim": "g/dL",
+          "refDusuk": 12.0,
+          "refYuksek": 15.5,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 13.1,
+              "refDusuk": 12,
+              "refYuksek": 16,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 13.7,
+              "refDusuk": 11.9,
+              "refYuksek": 14.6,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 12.7,
+              "refDusuk": 11.5,
+              "refYuksek": 15.5,
+              "lab": "Sisli 072 Aile Hekimligi",
+              "not": "127 g/L olarak raporlandi"
+            },
+            {
+              "tarih": "2025-07-28",
+              "deger": 13.1,
+              "refDusuk": 11.7,
+              "refYuksek": 15.5,
+              "lab": "Sisli 072 Aile Hekimligi",
+              "not": "131 g/L"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 13.5,
+              "refDusuk": 11.9,
+              "refYuksek": 14.6,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 13.0,
+              "refDusuk": 11.9,
+              "refYuksek": 14.6,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 13.9,
+              "refDusuk": 11.9,
+              "refYuksek": 14.6,
+              "lab": "Ondokuz Mayis Universitesi",
+              "not": "Acil basvuru"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 13.4,
+              "refDusuk": 11.7,
+              "refYuksek": 15.5,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 13.4,
+              "refDusuk": 11.2,
+              "refYuksek": 15.7,
+              "lab": "Istinye Universitesi"
+            }
+          ],
+          "aciklama": "g/L degerler g/dL'ye cevrildi (bolu 10). Kadin referansi."
+        },
+        "magnezyum": {
+          "etiket": "Magnezyum",
+          "birim": "mg/dL",
+          "refDusuk": 1.6,
+          "refYuksek": 2.4,
+          "sonuclar": [
+            {
+              "tarih": "2025-12-09",
+              "deger": 2.21,
+              "refDusuk": 1.6,
+              "refYuksek": 2.4,
+              "lab": "Medipol Universitesi"
+            }
+          ]
+        },
+        "b12": {
+          "etiket": "Vitamin B12",
+          "birim": "pg/mL",
+          "refDusuk": 191,
+          "refYuksek": 663,
+          "sonuclar": [
+            {
+              "tarih": "2025-12-09",
+              "deger": 506,
+              "refDusuk": 191,
+              "refYuksek": 663,
+              "lab": "Medipol Universitesi"
+            }
+          ]
+        },
+        "folat": {
+          "etiket": "Folik Asit",
+          "birim": "ng/mL",
+          "refDusuk": 4.6,
+          "refYuksek": 34.8,
+          "sonuclar": [
+            {
+              "tarih": "2025-12-09",
+              "deger": 7.5,
+              "refDusuk": 4.6,
+              "refYuksek": 34.8,
+              "lab": "Medipol Universitesi"
+            }
+          ]
+        },
+        "dhea_s": {
+          "etiket": "DHEA-SO4",
+          "birim": "ug/dL",
+          "refDusuk": 95.8,
+          "refYuksek": 511.7,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 644.8,
+              "refDusuk": 95.8,
+              "refYuksek": 511.7,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek - hekime danisilmali"
+            }
+          ],
+          "aciklama": "Adrenal androjen. Kadinlarda yuksekligi hormonal degerlendirme gerektirir."
+        },
+        "eozinofil": {
+          "etiket": "Eozinofil (Mutlak)",
+          "birim": "10^3/uL",
+          "refDusuk": 0.04,
+          "refYuksek": 0.4,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 0.06,
+              "refDusuk": 0,
+              "refYuksek": 0.5,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 0.34,
+              "refDusuk": 0.01,
+              "refYuksek": 0.4,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 0.43,
+              "refDusuk": 0.04,
+              "refYuksek": 0.36,
+              "lab": "Sisli 072 Aile Hekimligi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2025-07-28",
+              "deger": 0.37,
+              "refDusuk": 0.04,
+              "refYuksek": 0.36,
+              "lab": "Sisli 072 Aile Hekimligi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 0.44,
+              "refDusuk": 0.01,
+              "refYuksek": 0.4,
+              "lab": "Ondokuz Mayis Universitesi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 0.33,
+              "refDusuk": 0.01,
+              "refYuksek": 0.4,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 0.07,
+              "refDusuk": 0.01,
+              "refYuksek": 0.4,
+              "lab": "Ondokuz Mayis Universitesi",
+              "not": "Akut basvuruda dusuk"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 0.44,
+              "refDusuk": 0,
+              "refYuksek": 0.45,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 0.42,
+              "refDusuk": 0.04,
+              "refYuksek": 0.36,
+              "lab": "Istinye Universitesi",
+              "not": "Yuksek"
+            }
+          ],
+          "aciklama": "Bircok olcumde referans ustunde; alerjik egilim acisindan hekime sorulabilir"
+        },
+        "alt": {
+          "etiket": "ALT (SGPT)",
+          "birim": "U/L",
+          "refDusuk": 0,
+          "refYuksek": 33,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 11,
+              "refDusuk": 0,
+              "refYuksek": 33,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 7,
+              "refDusuk": 0,
+              "refYuksek": 33,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 7,
+              "refDusuk": 0,
+              "refYuksek": 34,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 8.2,
+              "refDusuk": 0,
+              "refYuksek": 33,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 7.8,
+              "refDusuk": 0,
+              "refYuksek": 33,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 19,
+              "refDusuk": 0,
+              "refYuksek": 33,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 15,
+              "refDusuk": 0,
+              "refYuksek": 33,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 4,
+              "refDusuk": 0,
+              "refYuksek": 34,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "ast": {
+          "etiket": "AST (SGOT)",
+          "birim": "U/L",
+          "refDusuk": 0,
+          "refYuksek": 32,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 14,
+              "refDusuk": 0,
+              "refYuksek": 32,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 11,
+              "refDusuk": 0,
+              "refYuksek": 32,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 14,
+              "refDusuk": 0,
+              "refYuksek": 35,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 13,
+              "refDusuk": 0,
+              "refYuksek": 32,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 11.8,
+              "refDusuk": 0,
+              "refYuksek": 32,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 21,
+              "refDusuk": 0,
+              "refYuksek": 32,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 18,
+              "refDusuk": 0,
+              "refYuksek": 32,
+              "lab": "Medipol Universitesi"
+            }
+          ]
+        },
+        "ggt": {
+          "etiket": "GGT",
+          "birim": "U/L",
+          "refDusuk": 0,
+          "refYuksek": 40,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 10,
+              "refDusuk": 0,
+              "refYuksek": 40,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 9,
+              "refDusuk": 6,
+              "refYuksek": 42,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 11.4,
+              "refDusuk": 0,
+              "refYuksek": 38,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 11,
+              "refDusuk": 6,
+              "refYuksek": 42,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 9,
+              "refDusuk": 6,
+              "refYuksek": 42,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 10,
+              "refDusuk": 6,
+              "refYuksek": 42,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ]
+        },
+        "alp": {
+          "etiket": "ALP (Alkalen Fosfataz)",
+          "birim": "U/L",
+          "refDusuk": 35,
+          "refYuksek": 104,
+          "sonuclar": [
+            {
+              "tarih": "2025-06-04",
+              "deger": 45,
+              "refDusuk": 35,
+              "refYuksek": 104,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 41.9,
+              "refDusuk": 33,
+              "refYuksek": 98,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 46,
+              "refDusuk": 35,
+              "refYuksek": 104,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ]
+        },
+        "kreatinin": {
+          "etiket": "Kreatinin",
+          "birim": "mg/dL",
+          "refDusuk": 0.5,
+          "refYuksek": 0.9,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 0.7,
+              "refDusuk": 0.5,
+              "refYuksek": 0.9,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 0.7,
+              "refDusuk": 0.5,
+              "refYuksek": 0.9,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 0.7,
+              "refDusuk": 0.51,
+              "refYuksek": 0.95,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 0.62,
+              "refDusuk": 0.5,
+              "refYuksek": 0.9,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 0.75,
+              "refDusuk": 0.5,
+              "refYuksek": 0.9,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 0.71,
+              "refDusuk": 0.5,
+              "refYuksek": 0.9,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 0.67,
+              "refDusuk": 0.5,
+              "refYuksek": 0.9,
+              "lab": "Medipol Universitesi"
+            }
+          ],
+          "aciklama": "Kadin referansi"
+        },
+        "egfr": {
+          "etiket": "eGFR",
+          "birim": "mL/dk/1.73m2",
+          "refDusuk": 90,
+          "refYuksek": 140,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 122,
+              "refDusuk": 90,
+              "refYuksek": 140,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 120.56,
+              "refDusuk": 60,
+              "refYuksek": 139,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 139.9,
+              "refDusuk": 60,
+              "refYuksek": 139,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 111.14,
+              "refDusuk": 60,
+              "refYuksek": 139,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 118.75,
+              "refDusuk": 60,
+              "refYuksek": 139,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ]
+        },
+        "ure": {
+          "etiket": "Ure",
+          "birim": "mg/dL",
+          "refDusuk": 16,
+          "refYuksek": 43,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 24.7,
+              "refDusuk": 16,
+              "refYuksek": 38,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 23,
+              "refDusuk": 17,
+              "refYuksek": 43,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 20,
+              "refDusuk": 16.6,
+              "refYuksek": 48.5,
+              "lab": "Medipol Universitesi"
+            }
+          ]
+        },
+        "kolesterol": {
+          "etiket": "Kolesterol (Total)",
+          "birim": "mg/dL",
+          "refDusuk": 0,
+          "refYuksek": 200,
+          "sonuclar": [
+            {
+              "tarih": "2025-06-04",
+              "deger": 132.8,
+              "refDusuk": 0,
+              "refYuksek": 200,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 137,
+              "refDusuk": 0,
+              "refYuksek": 200,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 140.3,
+              "refDusuk": 0,
+              "refYuksek": 200,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 126.8,
+              "refDusuk": 0,
+              "refYuksek": 200,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ]
+        },
+        "ldl": {
+          "etiket": "LDL Kolesterol",
+          "birim": "mg/dL",
+          "refDusuk": 0,
+          "refYuksek": 130,
+          "sonuclar": [
+            {
+              "tarih": "2025-06-04",
+              "deger": 67,
+              "refDusuk": 0,
+              "refYuksek": 130,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 76,
+              "refDusuk": 0,
+              "refYuksek": 130,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 70.74,
+              "refDusuk": 0,
+              "refYuksek": 130,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 66.94,
+              "refDusuk": 0,
+              "refYuksek": 130,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ]
+        },
+        "hdl": {
+          "etiket": "HDL Kolesterol",
+          "birim": "mg/dL",
+          "refDusuk": 45,
+          "refYuksek": 100,
+          "sonuclar": [
+            {
+              "tarih": "2025-06-04",
+              "deger": 55,
+              "refDusuk": 45,
+              "refYuksek": 100,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 49,
+              "refDusuk": 45,
+              "refYuksek": 100,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 61.2,
+              "refDusuk": 45,
+              "refYuksek": 100,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 46.3,
+              "refDusuk": 45,
+              "refYuksek": 100,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ],
+          "aciklama": "Kadinlarda >50 mg/dL tercih edilir; yuksek olmasi iyidir"
+        },
+        "trigliserit": {
+          "etiket": "Trigliserit",
+          "birim": "mg/dL",
+          "refDusuk": 0,
+          "refYuksek": 150,
+          "sonuclar": [
+            {
+              "tarih": "2025-06-04",
+              "deger": 52,
+              "refDusuk": 0,
+              "refYuksek": 150,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 62,
+              "refDusuk": 0,
+              "refYuksek": 150,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 41.8,
+              "refDusuk": 0,
+              "refYuksek": 150,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 67.8,
+              "refDusuk": 0,
+              "refYuksek": 150,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ]
+        },
+        "wbc": {
+          "etiket": "Lokosit (WBC)",
+          "birim": "10^3/uL",
+          "refDusuk": 4.0,
+          "refYuksek": 10.5,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 10.28,
+              "refDusuk": 4.5,
+              "refYuksek": 10,
+              "lab": "Ankara Etlik Sehir Hastanesi",
+              "not": "Hafif yuksek"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 6.96,
+              "refDusuk": 3.91,
+              "refYuksek": 10.9,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 9.41,
+              "refDusuk": 4.5,
+              "refYuksek": 10.5,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-07-28",
+              "deger": 6.0,
+              "refDusuk": 3.8,
+              "refYuksek": 10,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 8.54,
+              "refDusuk": 3.91,
+              "refYuksek": 10.9,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 7.84,
+              "refDusuk": 3.91,
+              "refYuksek": 10.9,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 8.77,
+              "refDusuk": 3.91,
+              "refYuksek": 10.9,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 10.77,
+              "refDusuk": 4.4,
+              "refYuksek": 11.3,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 6.24,
+              "refDusuk": 3.98,
+              "refYuksek": 10.04,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "plt": {
+          "etiket": "Trombosit (PLT)",
+          "birim": "10^3/uL",
+          "refDusuk": 150,
+          "refYuksek": 400,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 328,
+              "refDusuk": 150,
+              "refYuksek": 450,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 301,
+              "refDusuk": 173,
+              "refYuksek": 390,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 313,
+              "refDusuk": 150,
+              "refYuksek": 400,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 305,
+              "refDusuk": 173,
+              "refYuksek": 390,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 305,
+              "refDusuk": 173,
+              "refYuksek": 390,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 320,
+              "refDusuk": 173,
+              "refYuksek": 390,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 314,
+              "refDusuk": 150,
+              "refYuksek": 400,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 296,
+              "refDusuk": 150,
+              "refYuksek": 450,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "rbc": {
+          "etiket": "Eritrosit (RBC)",
+          "birim": "10^6/uL",
+          "refDusuk": 3.9,
+          "refYuksek": 5.2,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 4.46,
+              "refDusuk": 3.8,
+              "refYuksek": 5.3,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 4.47,
+              "refDusuk": 3.92,
+              "refYuksek": 5.08,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 4.28,
+              "refDusuk": 3.8,
+              "refYuksek": 5.6,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 4.59,
+              "refDusuk": 3.92,
+              "refYuksek": 5.08,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 4.38,
+              "refDusuk": 3.92,
+              "refYuksek": 5.08,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 4.6,
+              "refDusuk": 3.92,
+              "refYuksek": 5.08,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 4.44,
+              "refDusuk": 4.1,
+              "refYuksek": 5.1,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 4.56,
+              "refDusuk": 3.93,
+              "refYuksek": 5.22,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "mcv": {
+          "etiket": "MCV",
+          "birim": "fL",
+          "refDusuk": 80,
+          "refYuksek": 96,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 91.5,
+              "refDusuk": 81,
+              "refYuksek": 100,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 87.2,
+              "refDusuk": 82.9,
+              "refYuksek": 98,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 88.2,
+              "refDusuk": 80,
+              "refYuksek": 95,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 88.9,
+              "refDusuk": 81.8,
+              "refYuksek": 95.5,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 88.4,
+              "refDusuk": 81.8,
+              "refYuksek": 95.5,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 90.4,
+              "refDusuk": 81.8,
+              "refYuksek": 95.5,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 86.0,
+              "refDusuk": 80,
+              "refYuksek": 96,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 87.9,
+              "refDusuk": 79.4,
+              "refYuksek": 94.8,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "lenfosit": {
+          "etiket": "Lenfosit (Mutlak)",
+          "birim": "10^3/uL",
+          "refDusuk": 1.18,
+          "refYuksek": 3.74,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 3.12,
+              "refDusuk": 0.8,
+              "refYuksek": 3.2,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 2.03,
+              "refDusuk": 1.26,
+              "refYuksek": 3.35,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 1.99,
+              "refDusuk": 1.18,
+              "refYuksek": 3.74,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-07-28",
+              "deger": 2.08,
+              "refDusuk": 1.18,
+              "refYuksek": 3.74,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 2.31,
+              "refDusuk": 1.26,
+              "refYuksek": 3.35,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 1.82,
+              "refDusuk": 1.26,
+              "refYuksek": 3.35,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 1.29,
+              "refDusuk": 1.26,
+              "refYuksek": 3.35,
+              "lab": "Ondokuz Mayis Universitesi",
+              "not": "Alt sinirda - akut basvuru"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 2.62,
+              "refDusuk": 1,
+              "refYuksek": 4.8,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 1.88,
+              "refDusuk": 1.18,
+              "refYuksek": 3.74,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "notrofil": {
+          "etiket": "Notrofil (Mutlak)",
+          "birim": "10^3/uL",
+          "refDusuk": 1.8,
+          "refYuksek": 7.7,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 6.23,
+              "refDusuk": 1.8,
+              "refYuksek": 7.5,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 3.91,
+              "refDusuk": 2.1,
+              "refYuksek": 8.89,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 6.39,
+              "refDusuk": 1.56,
+              "refYuksek": 6.13,
+              "lab": "Sisli 072 Aile Hekimligi",
+              "not": "Hafif yuksek"
+            },
+            {
+              "tarih": "2025-07-28",
+              "deger": 3.22,
+              "refDusuk": 1.56,
+              "refYuksek": 6.13,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 5.2,
+              "refDusuk": 2.1,
+              "refYuksek": 8.89,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 5.05,
+              "refDusuk": 2.1,
+              "refYuksek": 8.89,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 6.88,
+              "refDusuk": 2.1,
+              "refYuksek": 8.89,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 6.81,
+              "refDusuk": 1.8,
+              "refYuksek": 7.7,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 3.42,
+              "refDusuk": 1.56,
+              "refYuksek": 6.13,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "monosit": {
+          "etiket": "Monosit (Mutlak)",
+          "birim": "10^3/uL",
+          "refDusuk": 0.2,
+          "refYuksek": 0.9,
+          "sonuclar": [
+            {
+              "tarih": "2025-01-21",
+              "deger": 0.81,
+              "refDusuk": 0.2,
+              "refYuksek": 0.9,
+              "lab": "Ankara Etlik Sehir Hastanesi"
+            },
+            {
+              "tarih": "2025-06-04",
+              "deger": 0.61,
+              "refDusuk": 0.25,
+              "refYuksek": 0.84,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 0.55,
+              "refDusuk": 0.24,
+              "refYuksek": 0.36,
+              "lab": "Sisli 072 Aile Hekimligi",
+              "not": "Yuksek"
+            },
+            {
+              "tarih": "2025-07-28",
+              "deger": 0.28,
+              "refDusuk": 0.26,
+              "refYuksek": 0.81,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 0.51,
+              "refDusuk": 0.25,
+              "refYuksek": 0.84,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 0.59,
+              "refDusuk": 0.25,
+              "refYuksek": 0.84,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 0.47,
+              "refDusuk": 0.25,
+              "refYuksek": 0.84,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 0.84,
+              "refDusuk": 0,
+              "refYuksek": 0.8,
+              "lab": "Medipol Universitesi",
+              "not": "Sinirda"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 0.46,
+              "refDusuk": 0.24,
+              "refYuksek": 0.86,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "crp": {
+          "etiket": "CRP",
+          "birim": "mg/L",
+          "refDusuk": 0,
+          "refYuksek": 5,
+          "sonuclar": [
+            {
+              "tarih": "2025-12-09",
+              "deger": 0.4,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Medipol Universitesi"
+            },
+            {
+              "tarih": "2026-03-04",
+              "deger": 1.0,
+              "refDusuk": 0,
+              "refYuksek": 5,
+              "lab": "Istinye Universitesi",
+              "not": "<0.10 mg/dL, yani <1 mg/L - tespit siniri alti"
+            }
+          ],
+          "aciklama": "mg/L'ye normalize edildi"
+        },
+        "kalsiyum": {
+          "etiket": "Kalsiyum",
+          "birim": "mg/dL",
+          "refDusuk": 8.6,
+          "refYuksek": 10.2,
+          "sonuclar": [
+            {
+              "tarih": "2025-10-26",
+              "deger": 9.7,
+              "refDusuk": 8.6,
+              "refYuksek": 10.0,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-12-09",
+              "deger": 9.41,
+              "refDusuk": 8.8,
+              "refYuksek": 10.2,
+              "lab": "Medipol Universitesi"
+            }
+          ]
+        },
+        "glukoz": {
+          "etiket": "Aclik Kan Sekeri",
+          "birim": "mg/dL",
+          "refDusuk": 74,
+          "refYuksek": 100,
+          "sonuclar": [
+            {
+              "tarih": "2025-10-26",
+              "deger": 90.3,
+              "refDusuk": 74,
+              "refYuksek": 100,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ]
+        },
+        "ck": {
+          "etiket": "Kreatin Kinaz (CK)",
+          "birim": "U/L",
+          "refDusuk": 26,
+          "refYuksek": 192,
+          "sonuclar": [
+            {
+              "tarih": "2025-06-04",
+              "deger": 41,
+              "refDusuk": 26,
+              "refYuksek": 192,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-07-08",
+              "deger": 44,
+              "refDusuk": 0,
+              "refYuksek": 145,
+              "lab": "Sisli 072 Aile Hekimligi"
+            },
+            {
+              "tarih": "2025-08-18",
+              "deger": 51,
+              "refDusuk": 26,
+              "refYuksek": 192,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-24",
+              "deger": 45,
+              "refDusuk": 26,
+              "refYuksek": 192,
+              "lab": "Ondokuz Mayis Universitesi"
+            },
+            {
+              "tarih": "2025-10-26",
+              "deger": 98,
+              "refDusuk": 26,
+              "refYuksek": 192,
+              "lab": "Ondokuz Mayis Universitesi"
+            }
+          ]
+        },
+        "st4": {
+          "etiket": "Serbest T4",
+          "birim": "ng/dL",
+          "refDusuk": 0.7,
+          "refYuksek": 1.48,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 1.06,
+              "refDusuk": 0.7,
+              "refYuksek": 1.48,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "amh": {
+          "etiket": "Anti-Mullerian Hormon (AMH)",
+          "birim": "ng/mL",
+          "refDusuk": 1.14,
+          "refYuksek": 9.17,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 5.06,
+              "refDusuk": 1.14,
+              "refYuksek": 9.17,
+              "lab": "Istinye Universitesi",
+              "not": "Yumurtalik rezervi gostergesi"
+            }
+          ]
+        },
+        "prolaktin": {
+          "etiket": "Prolaktin",
+          "birim": "ng/mL",
+          "refDusuk": 5.18,
+          "refYuksek": 26.53,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 20.03,
+              "refDusuk": 5.18,
+              "refYuksek": 26.53,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "fsh": {
+          "etiket": "FSH",
+          "birim": "mIU/mL",
+          "refDusuk": 3.5,
+          "refYuksek": 12.5,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 4.39,
+              "refDusuk": 3.5,
+              "refYuksek": 12.5,
+              "lab": "Istinye Universitesi",
+              "not": "Folikuler faz referansi"
+            }
+          ]
+        },
+        "lh": {
+          "etiket": "LH",
+          "birim": "mIU/mL",
+          "refDusuk": 1.8,
+          "refYuksek": 11.78,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 2.2,
+              "refDusuk": 1.8,
+              "refYuksek": 11.78,
+              "lab": "Istinye Universitesi",
+              "not": "Folikuler faz referansi"
+            }
+          ]
+        },
+        "estradiol": {
+          "etiket": "Estradiol (E2)",
+          "birim": "pg/mL",
+          "refDusuk": 12.5,
+          "refYuksek": 166.1,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 39,
+              "refDusuk": 12.5,
+              "refYuksek": 166.1,
+              "lab": "Istinye Universitesi",
+              "not": "Folikuler faz referansi"
+            }
+          ]
+        },
+        "testosteron_total": {
+          "etiket": "Testosteron (Total)",
+          "birim": "nmol/L",
+          "refDusuk": 0.25,
+          "refYuksek": 2.75,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 2.37,
+              "refDusuk": 0.25,
+              "refYuksek": 2.75,
+              "lab": "Istinye Universitesi",
+              "not": "Ust sinira yakin"
+            }
+          ]
+        },
+        "dht": {
+          "etiket": "Dihidrotestosteron (DHT)",
+          "birim": "pg/mL",
+          "refDusuk": 0,
+          "refYuksek": 300,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 121.99,
+              "refDusuk": 0,
+              "refYuksek": 300,
+              "lab": "Istinye Universitesi"
+            }
+          ]
+        },
+        "progesteron_17oh": {
+          "etiket": "17-OH Progesteron",
+          "birim": "ng/mL",
+          "refDusuk": 0.13,
+          "refYuksek": 0.89,
+          "sonuclar": [
+            {
+              "tarih": "2026-01-26",
+              "deger": 0.61,
+              "refDusuk": 0.13,
+              "refYuksek": 0.89,
+              "lab": "Istinye Universitesi",
+              "not": "Folikuler faz referansi"
+            }
+          ]
+        }
+      },
+      "kilo": [],
+      "notlar": [
+        {
+          "tarih": "2026-01-26",
+          "metin": "Hormon paneli: DHEA-SO4 644.8 ug/dL ile referans ustunde (95.8-511.7). Total testosteron 2.37 nmol/L ust sinira yakin. Diger hormonlar (AMH, FSH, LH, E2, prolaktin, 17-OH progesteron) normal."
+        },
+        {
+          "tarih": "2025-12-09",
+          "metin": "D vitamini 16.9 ng/mL - eksiklik bolgesi. Ferritin 34, B12 506, magnezyum 2.21 normal."
+        },
+        {
+          "tarih": "2025-10-26",
+          "metin": "Acil basvuru: biyokimya ve hemogram genel olarak normal. Idrarda eritrosit 9/HPF. Kan gazi venoz alindigindan PO2/O2SAT dusuk gorunuyor, beklenen durum."
+        },
+        {
+          "tarih": "2025-07-28",
+          "metin": "Talasemi taramasi (HPLC): HbA2 2.5% - normal, tasiyicilik bulgusu yok."
+        },
+        {
+          "tarih": "2025-07-28",
+          "metin": "Anti-HBs 4.39 IU/L (<10 negatif): Hepatit B'ye karsi koruyucu bagisiklik YOK. Asi konusunu hekime sor. HBsAg, Anti-HIV, Anti-HCV, VDRL negatif."
+        },
+        {
+          "tarih": "2026-03-04",
+          "metin": "Eozinofil birden fazla olcumde referans ustunde (0.42-0.44). Alerjik egilim acisindan degerlendirilebilir."
+        }
+      ]
+    }
+  }
+}
