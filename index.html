@@ -269,7 +269,7 @@ function toast(msg,ms){ const t=$('#toast'); t.textContent=msg; t.classList.add(
 /* ================= GitHub senkron + yerel yedek ================= */
 const GH_KEY='saglikGhCfg';      // { token, repo, path, branch }
 const LOCAL_KEY='saglikYerelKopya'; // { t: jsonMetni, at: zaman, pushed: bool }
-const GH_DEFAULT={repo:'amuce/saglik_takip', path:'saglik-verileri.json', branch:'main'};
+const GH_DEFAULT={repo:'amuce/saglik-paneli', path:'saglik-verileri.json', branch:'main'};
 
 function lsGet(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(_){ return null; } }
 function lsSet(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); return true; }catch(_){ return false; } }
@@ -519,7 +519,7 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&$('#modalBg').clas
 function openSettings(){
   const c=lsGet(GH_KEY)||{}, L=readLocal();
   openModal(`<div class="mh"><h2>GitHub yedeği</h2><button class="close" aria-label="Kapat">&times;</button></div>
-    <p class="muted">Açıkken veri gizli depodan okunur; JSON yüklediğin anda depoya da yazılır. Her cihaza tokeni bir kez gir.</p>
+    <p class="muted">Açıkken JSON yüklediğin anda dosya depoya da yazılır. Sadece bakmak için token gerekmez; yükleme yapacağın cihaza bir kez gir.</p>
     <div class="fld"><label>Fine-grained token (Contents: Read and write)</label>
       <input id="cfgToken" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_..." value="${esc(c.token||'')}"></div>
     <div class="fld"><label>Depo</label><input id="cfgRepo" spellcheck="false" value="${esc(c.repo||GH_DEFAULT.repo)}"></div>
@@ -642,7 +642,7 @@ function fb(t,cb){
 (async function(){
   let src='veri yok', remote=null, remoteSrc='', ghErr=null;
   if(ghOn()){
-    try{ remote=await ghPull(); if(remote) remoteSrc='GitHub (gizli depo)'; }
+    try{ remote=await ghPull(); if(remote) remoteSrc='GitHub'; }
     catch(e){ ghErr=e.message; }
   }
   if(!remote){

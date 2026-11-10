@@ -4,7 +4,7 @@ Melis ve Muhammed için kişisel laboratuvar sonucu takip paneli. Tek dosyalık 
 
 ## Kurulum (GitHub Pages)
 
-1. `index.html`'i bu reponun **kök dizinine** koy (sağlık verisi buraya konmaz)
+1. `index.html` ve `saglik-verileri.json` reponun **kök dizininde** durur
 2. Repo → **Settings** → **Pages**
 3. **Source**: `Deploy from a branch` · **Branch**: `main` · **Folder**: `/ (root)` → Save
 4. 1–2 dakika sonra panel şu adreste yayında olur:
@@ -25,7 +25,7 @@ Repo private ise Pages, GitHub'ın ücretli planlarında çalışır. Sağlık v
 - **İndir** — mevcut veriyi JSON olarak indir
 - **Özet** — tüm son değerleri panoya kopyalar; bir LLM'e yapıştırıp değerlendirme isteyebilirsin
 
-Veri bu açık depoda **tutulmaz**; gizli `Amuce/saglik_takip` deposundaki `saglik-verileri.json` dosyasındadır. Her cihazda bir kez **GitHub yedeği** ekranından fine-grained token gir (sadece `saglik_takip`, Contents: Read and write). Panel açılırken veriyi oradan okur, **Yükle** ile verilen JSON'u oraya yazar. Token yoksa veri yalnızca o cihazın tarayıcısında kalır.
+Veri bu depodaki `saglik-verileri.json` dosyasındadır; panel açılırken onu okur, bakmak için token gerekmez. **Yükle** ile verilen JSON'un depoya da yazılması için o cihazda bir kez **GitHub yedeği** ekranından fine-grained token gir (sadece `saglik-paneli`, Contents: Read and write).
 
 ## Veri formatı
 
