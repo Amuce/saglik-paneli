@@ -65,10 +65,10 @@
           "not": "Hashimoto tiroiditi icin"
         },
         {
-          "ad": "D-Colefor D3",
-          "doz": "50.000 IU",
-          "siklik": "haftada 1 (kur)",
-          "not": "D vitamini yukleme kuru"
+          "ad": "Ocean Vitamin D3 (Orzax) damla",
+          "doz": "1 damla (1000 IU)",
+          "siklik": "2 gunde 1",
+          "not": "Idame; D-Colefor 50.000 IU yukleme kuru yerine"
         }
       ],
       "markerlar": {
@@ -2548,6 +2548,10 @@
         {
           "tarih": "2026-11-10",
           "metin": "Goruntuleme gecmisi eklendi (goruntuleme alani). Tarihi raporda yazmayan Medipol tetkiklerinin tarihi protokol sirasi ve ayni gunlerdeki tahlillere gore tahminidir (tarihTahmini: true). 16.02.2026 BT'de onerilen kontrastli toraks BT'nin yapilip yapilmadigi kayitlarda yok."
+        },
+        {
+          "tarih": "2026-11-10",
+          "metin": "D vitamini: D-Colefor 50.000 IU haftalik yukleme kuru birakildi; Ocean Vitamin D3 1000 IU damlaya gecildi (2 gunde 1). Son D vitamini 31.1 ng/mL (09.11.2026)."
         }
       ],
       "aileOykusu": [
